@@ -6,6 +6,7 @@ User-visible changes, newest first ([Keep a Changelog](https://keepachangelog.co
 ### Changed
 - New look from the household app's design system (Ghar Ledger), dark theme: Figtree and Archivo fonts, teal accent, saffron catch-up, its buttons, chips, tab bar and bottom sheets (F-031).
 - Neutral graphite background instead of the household app's green-black; selected rows and the current guide programmes are neutral grey with a teal edge (F-031, ADR-0009).
+- Development agents: new skills, small, standard and high-risk change sizes, and a guard hook for the helper/data folder. No app change (ADR-0013).
 
 ## 0.2.0 — 2026-11-01
 ### Added

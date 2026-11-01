@@ -1,0 +1,8 @@
+helper/data/
+helper/web/lib/
+helper/web/fonts/
+docs/design/prototype/
+docs/design/screenshots/
+tools/media/
+tools/node_modules/
+.claude/

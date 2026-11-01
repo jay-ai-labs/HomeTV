@@ -23,6 +23,23 @@ Next:
 
 ---
 
+## 2026-11-01 · Agent harness update (skills, change sizes, guard hook)
+Surface: Claude Code CLI
+Features: none (process)
+Done:
+- Added skills: grill-me, graphify, Superpowers (TDD, debugging and verification only), claude-mem, context-mode, frontend-design, code-simplifier, claude-md-management, and Anthropic's design skills. Governed by ADR-0013.
+- Added small, standard and high-risk change sizes, a precedence table in CLAUDE.md, per-agent memory, token-use rules, and a helper/data guard hook.
+- Harness review fixes done: size rules, review order, session rule, and a setup and recovery guide.
+- Not committed yet.
+Tested: none reported for this update.
+Problems / surprises:
+- Claude Code's safety check blocks agents from editing `.claude/settings.json`. Until the owner applies the updated file, the guard hook and Superpowers skill blocks are not active.
+- Another session was editing `tools/` at the same time. That work is not part of this update.
+Decisions: ADR-0013.
+Next:
+- Superpowers blocks and git add blocks are now active in `.claude/settings.json`. Owner applies the guard hook and the two env settings in `.claude/settings.json` and confirms they are active.
+- Commit the harness update after review.
+
 ## 2026-11-01 · Repo baseline and folder decision
 Surface: Claude Code CLI
 Features: none (process)

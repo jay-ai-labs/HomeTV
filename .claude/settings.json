@@ -1,5 +1,4 @@
 {
-  "agent": "orchestrator",
   "permissions": {
     "allow": [
       "Bash(py:*)",
@@ -14,13 +13,112 @@
       "Bash(git log:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git mv:*)"
+      "Bash(git push:*)",
+      "Bash(git add -A:*)",
+      "Bash(git add --all:*)",
+      "Bash(git add .:*)",
+      "Bash(git mv:*)",
+      "Bash(graphify update:*)",
+      "Bash(graphify query:*)",
+      "Bash(graphify path:*)",
+      "Bash(graphify explain:*)",
+      "mcp__plugin_context-mode_context-mode__ctx_execute",
+      "mcp__plugin_context-mode_context-mode__ctx_execute_file",
+      "mcp__plugin_context-mode_context-mode__ctx_batch_execute"
     ],
     "deny": [
       "Read(./helper/data/**)",
       "Edit(./helper/data/**)",
-      "Write(./helper/data/**)",
-      "Bash(git push:*)"
+      "Read(./helper/web/lib/**)",
+      "Read(./docs/design/prototype/demo-video.js)",
+    
+      "Skill(superpowers:brainstorming)",
+      "Skill(superpowers:writing-plans)",
+      "Skill(superpowers:executing-plans)",
+      "Skill(superpowers:subagent-driven-development)",
+      "Skill(superpowers:dispatching-parallel-agents)",
+      "Skill(superpowers:using-git-worktrees)",
+      "Skill(superpowers:finishing-a-development-branch)",
+      "Skill(superpowers:requesting-code-review)",
+      "Skill(claude-mem:agent-cost-report)",
+      "Skill(claude-mem:babysit)",
+      "Skill(claude-mem:backup-setup)",
+      "Skill(claude-mem:build)",
+      "Skill(claude-mem:build-and-release)",
+      "Skill(claude-mem:ccs-align)",
+      "Skill(claude-mem:childhood)",
+      "Skill(claude-mem:cloud-sync)",
+      "Skill(claude-mem:design-is)",
+      "Skill(claude-mem:do)",
+      "Skill(claude-mem:handoff)",
+      "Skill(claude-mem:knowledge-agent)",
+      "Skill(claude-mem:learn-codebase)",
+      "Skill(claude-mem:make-plan)",
+      "Skill(claude-mem:mode-creator)",
+      "Skill(claude-mem:oh-my-issues)",
+      "Skill(claude-mem:owner-goals)",
+      "Skill(claude-mem:pathfinder)",
+      "Skill(claude-mem:release)",
+      "Skill(claude-mem:request-progress)",
+      "Skill(claude-mem:screenpipe)",
+      "Skill(claude-mem:smart-explore)",
+      "Skill(claude-mem:standup)",
+      "Skill(claude-mem:timeline-report)",
+      "Skill(claude-mem:version-bump)",
+      "Skill(claude-mem:weekly-digests)",
+      "Skill(claude-mem:what-the)",
+      "Skill(claude-mem:wowerpoint)"
+    ]
+  },
+  "enabledPlugins": {
+    "frontend-design@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "context-mode@context-mode": true,
+    "claude-mem@thedotmack": true
+  },
+  "skillOverrides": {
+    "docx": "user-invocable-only",
+    "pdf": "user-invocable-only",
+    "pptx": "user-invocable-only",
+    "xlsx": "user-invocable-only",
+    "docs": "user-invocable-only",
+    "google-workspace": "user-invocable-only",
+    "morning": "user-invocable-only",
+    "chrome-browser": "user-invocable-only",
+    "built-in-browser": "user-invocable-only",
+    "computer-use": "user-invocable-only",
+    "import-memory": "user-invocable-only",
+    "deep-research": "user-invocable-only",
+    "skill-creator": "user-invocable-only",
+    "dataviz": "user-invocable-only",
+    "schedule": "user-invocable-only",
+    "loop": "user-invocable-only",
+    "simplify": "user-invocable-only",
+    "workflow-authoring": "user-invocable-only",
+    "plugin-authoring": "user-invocable-only",
+    "claude-api": "user-invocable-only",
+    "keybindings-help": "user-invocable-only",
+    "run": "user-invocable-only"
+  },
+  "agent": "orchestrator",
+  "env": {
+    "CLAUDE_MEM_TELEMETRY": "0",
+    "CONTEXT_MODE_REQUIRE_SECURITY": "1"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|PowerShell|mcp__.*context-mode.*",
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "bash",
+            "command": "sh \"$CLAUDE_PROJECT_DIR/.claude/hooks/block-secrets.sh\""
+          }
+        ]
+      }
     ]
   }
 }

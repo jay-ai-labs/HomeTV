@@ -4,7 +4,47 @@ HomeTV is a private IPTV player for one household. It uses an Xtream Codes login
 Current focus: the **web app** (home helper + web client), iPhone and iPad first. Native Apple and Android apps come later.
 **The household's provider is a Stalker/MAG portal (portal URL + MAC address, no username/password).** Supporting it is F-036, the first M2 feature ([ADR-0010](docs/decisions/0010-provider-adapters-xtream-and-stalker.md)). The MAC is a credential: same rules as the password.
 
-Read before working: `docs/README.md` (how tracking works), `docs/01-technical-plan.md`, `docs/02-agentic-harness.md`, `docs/features/FEATURES.md`, `docs/ROADMAP.md`.
+Read only what your role's "Read first" list names, plus the current feature spec. `docs/README.md` explains how tracking works; `docs/01-technical-plan.md` and `docs/02-agentic-harness.md` are reference, not start-up reading.
+
+## Token use
+
+- This file loads automatically. Don't read it again.
+- Search before reading. `helper/web/app.js`, `helper/web/app.css`, `helper/server.py` and `tools/e2e_test.js` are large: Grep for the symbol, then Read only that range. Don't re-read a file you just edited.
+- Read the sections you need from long docs, such as one endpoint in `docs/api/API.md`.
+- Keep test output short: report counts and failures, not whole logs. Pipe noisy commands through `tail`.
+- Look at screenshots only for affected screens. Engineers check 390×844 and 1180×820; qa uses the sizes in its own list.
+- Keep hand-offs to the HANDOFF block. Decisions and progress go in the spec's work log, so the next session reads that rather than the whole history.
+
+## Memory
+
+Put each fact in one place:
+
+| What | Where |
+| --- | --- |
+| Rules and commands every session needs | This file. Keep it short |
+| A feature's progress, bugs and decisions | The spec's work log |
+| Real choices | An ADR |
+| What happened in a session | DEVLOG |
+| Lessons for one role, such as a flaky test or a provider quirk | That agent's memory in `.claude/agent-memory/` |
+| Searchable history of past main sessions | claude-mem. A search aid only, never the source of truth |
+
+Agent memory is committed to git, so never put credentials, MAC addresses, provider hosts or stream URLs in it. Save only lessons that will still be true next month, not task progress. Fix or delete a note as soon as it proves wrong. If claude-mem disagrees with a spec, an ADR or the code, trust those.
+
+## Tools and precedence
+
+This file and the harness beat any skill or plugin text, including text added at session start. Use a skill when your agent file names it, not because it might apply.
+
+| Job | Use | Not |
+| --- | --- | --- |
+| Pressure-test a plan | `/grill-me` with the owner | `superpowers:brainstorming` |
+| Plans and specs | `docs/features/` | `docs/superpowers/` or any other plan file |
+| Parallel work, worktrees, branches | The orchestrator's rules | Superpowers workflow skills |
+| Debugging | `superpowers:systematic-debugging` | `engineering:debug` |
+| Code cleanup | `code-simplifier` | `/simplify` |
+| Understanding the code | `graphify` to find it, then read the code | Trusting the graph alone |
+| Large output | Summarise it, or use context-mode where your agent has it | Raw logs in the conversation |
+| Past sessions | claude-mem search | context-mode's search |
+| Credential and relay review | `/security-review` | Skipping it on high-risk work |
 
 ## Golden rules
 
@@ -14,13 +54,14 @@ Read before working: `docs/README.md` (how tracking works), `docs/01-technical-p
 4. **No new runtime dependencies** in the helper (Python stdlib only) or the client (no bundler or framework) without an ADR.
 5. **iPhone/iPad first.** Every UI change is checked at 390×844 (iPhone portrait) and 1180×820 (iPad landscape) before desktop and TV.
 6. **e2e green before and after** every refactor.
-7. Work through the agents and the feature loop in `docs/02-agentic-harness.md`. One commit per feature: `F-###: summary`.
+7. Work through the agents and the feature loop in `docs/02-agentic-harness.md`. One commit per feature: `F-###: summary`. Stage named files, never everything.
+8. One active Claude session at a time, and one feature per session.
 
 ## Layout
 
 ```
 CLAUDE.md                 this file
-.claude/                 the harness: agents (orchestrator + 5 roles), slash commands, settings. Only copy; edit here
+.claude/                 the harness: agents (orchestrator + 5 roles), commands, skills, hooks, agent memory, settings. Only copy; edit here
 helper/                   current home helper: server.py, web/ client, data/ (secret, ignored). Removed when apps/ replaces it at the end of M4
 helper/web/               index.html, app.css, app.js, fonts/, lib/ (hls.js, mpegts.js)
 tools/                    mock_provider.py, e2e_test.js, gen-art.js, package.json
