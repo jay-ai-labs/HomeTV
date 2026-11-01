@@ -1,0 +1,11 @@
+# Synology: Container Manager > Project > Create, choose this "helper" folder, then Build.
+# Open http://<your-NAS-IP>:8080 afterwards (the address printed in the log is the container's, not the NAS's).
+services:
+  hometv:
+    build: .
+    container_name: hometv
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped

@@ -1,0 +1,29 @@
+{
+  "agent": "orchestrator",
+  "permissions": {
+    "allow": [
+      "Bash(py:*)",
+      "Bash(python:*)",
+      "Bash(node:*)",
+      "Bash(npm:*)",
+      "Bash(npx playwright:*)",
+      "Bash(robocopy:*)",
+      "Bash(curl http://localhost:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git mv:*)"
+    ],
+    "deny": [
+      "Read(./development/helper/data/**)",
+      "Edit(./development/helper/data/**)",
+      "Write(./development/helper/data/**)",
+      "Read(./helper/data/**)",
+      "Edit(./helper/data/**)",
+      "Write(./helper/data/**)",
+      "Bash(git push:*)"
+    ]
+  }
+}

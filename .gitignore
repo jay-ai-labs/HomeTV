@@ -1,0 +1,12 @@
+# Provider login and household data: never commit
+data/
+**/helper/data/
+# Test media and caches
+development/tools/media/
+node_modules/
+__pycache__/
+*.pyc
+*.bak.json
+# OS
+Thumbs.db
+.DS_Store
