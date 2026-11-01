@@ -17,9 +17,6 @@
       "Bash(git mv:*)"
     ],
     "deny": [
-      "Read(./development/helper/data/**)",
-      "Edit(./development/helper/data/**)",
-      "Write(./development/helper/data/**)",
       "Read(./helper/data/**)",
       "Edit(./helper/data/**)",
       "Write(./helper/data/**)",

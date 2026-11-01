@@ -17,7 +17,7 @@ CLAUDE.md, docs/01-technical-plan.md, docs/api/API.md, docs/database/DATA-MODEL.
 - docs/database/DATA-MODEL.md (the design)
 - The "Design notes" section of feature specs in docs/features/
 
-You never edit anything under development/.
+You never edit code in helper/, tools/ or apps/.
 
 ## How you work on a feature
 1. Read the spec's Problem, Outcome and Acceptance criteria. If criteria aren't testable, rewrite them so QA can check each one (name the layout: ≤700 / 701–1180 / >1180 px).

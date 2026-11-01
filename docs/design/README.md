@@ -4,7 +4,7 @@ HomeTV uses the **household app's design system**: the same fonts, colours, shap
 [Ghar Ledger](https://claude.ai/artifact/Wjqnp9enX3cSCpKMSD4MdG), in a dark theme. The background is neutral graphite instead of the household app's green-black ([ADR-0009](../decisions/0009-neutral-graphite-background.md)). It is built for
 iPhone and iPad first and also works on desktop and TV with a remote or keyboard.
 The live, clickable version is the [cloud prototype](https://claude.ai/artifact/GyjvUcnXkD8NqXS8JD7S3i)
-(sample data); its files are in `prototype\` next to this README. The production code is `helper\web\` (`development\helper\web\` once the code move is done).
+(sample data); its files are in `prototype\` next to this README. The production code is `helper\web\`.
 
 | File | What it is |
 | --- | --- |

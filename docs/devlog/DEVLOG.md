@@ -23,6 +23,20 @@ Next:
 
 ---
 
+## 2026-11-01 · Repo baseline and folder decision
+Surface: Claude Code CLI
+Features: none (process)
+Done:
+- Created the git repo and baseline commit; the owner pushed it to GitHub.
+- Removed `development/`. `helper/` and `tools/` stay at the root, and new code goes in `apps/` (ADR-0012). All paths in docs and agents updated. DEVLOG history left as written.
+Tested: docs and paths only; searched for leftover `development/` references.
+Problems / surprises:
+- A cleanup script deleted `CLAUDE.md`: a helper function named `Rd` resolved to PowerShell's `rd` alias for `Remove-Item`. Restored from the baseline commit with nothing lost.
+Decisions: ADR-0012.
+Next:
+- Owner installs Node.js, ffmpeg and Python, and confirms no other session is editing.
+- e2e assertions and baseline, then F-036 helper adapter.
+
 ## 2026-11-01 · Orchestrator agent and harness install
 Surface: Claude Code CLI
 Features: none (process)

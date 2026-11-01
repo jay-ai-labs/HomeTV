@@ -1,6 +1,6 @@
 # HomeTV documentation
 
-Everything about how HomeTV is designed, built and tracked. Source code is in `../development/`. Rules for Claude Code are in `../CLAUDE.md`.
+Everything about how HomeTV is designed, built and tracked. Source code is in `../helper/` and `../tools/`, with new code going in `../apps/`. Rules for Claude Code are in `../CLAUDE.md`.
 
 | Need | Go to |
 | --- | --- |

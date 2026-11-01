@@ -85,7 +85,7 @@ Headers on every call:
 Stalker portals usually allow **one active session per MAC**. HomeTV, iSTB and any MAG box using the same MAC can log each other out, and the household may get only one stream at a time. Options: use HomeTV instead of iSTB, ask the provider for a second MAC, or ask for Xtream credentials (many providers issue both).
 
 ### Mock
-backend adds `development/tools/mock_stalker.py` (port 9002), reusing the Xtream mock's media. It must:
+backend adds `tools/mock_stalker.py` (port 9002), reusing the Xtream mock's media. It must:
 - check the `mac` cookie and the Bearer token, and return an auth error after a configurable token lifetime to test renewal;
 - serve genres, channels with relative logo paths, a guide with `mark_archive`, paginated VOD (14 per page), series with seasons/episodes, and `create_link` returning `ffmpeg http://127.0.0.1:9002/...` with single-use play tokens;
 - reject one MAC as unregistered, and include one channel whose link returns 403.

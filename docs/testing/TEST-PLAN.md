@@ -6,8 +6,8 @@ Owner: qa agent · Last updated: 2026-11-01
 
 | Layer | What | Where | When |
 | --- | --- | --- | --- |
-| Unit (helper) | provider URL building, playlist rewrite, token map, time-zone conversion, store migrations, EPG parsing | `development/helper/tests/` (`py -m unittest`), arrives with F-032 | Every helper change |
-| End-to-end | Every screen and flow in a real browser against the mock provider | `development/tools/e2e_test.js` (Playwright) | Every change (`/test`) |
+| Unit (helper) | provider URL building, playlist rewrite, token map, time-zone conversion, store migrations, EPG parsing | `helper/tests/` (`py -m unittest`), arrives with F-032 | Every helper change |
+| End-to-end | Every screen and flow in a real browser against the mock provider | `tools/e2e_test.js` (Playwright) | Every change (`/test`) |
 | Visual | Screenshots at iPhone portrait/landscape, iPad portrait/landscape, desktop, TV | e2e writes to the screenshot folder | Every UI change |
 | Device checklist | Real devices on the home network | below | Before each release |
 | Real provider | Owner-only smoke test | below | Before each release; after provider changes |
@@ -15,8 +15,8 @@ Owner: qa agent · Last updated: 2026-11-01
 ## Running the automated tests (Windows)
 
 ```bat
-:: once: Playwright, plus test media (ffmpeg commands in development\tools\README.md)
-cd development\tools
+:: once: Playwright, plus test media (ffmpeg commands in tools\README.md)
+cd tools
 npm install
 npx playwright install chromium
 
@@ -24,14 +24,14 @@ npx playwright install chromium
 py mock_provider.py 9001
 
 :: terminal 2: a THROWAWAY copy of the helper, so tests never touch the real data\config.json
-robocopy development\helper %TEMP%\hometv-test /E /XD data >nul
+robocopy helper %TEMP%\hometv-test /E /XD data >nul
 cd /d %TEMP%\hometv-test
 set HOMETV_PORT=8099
 py server.py
 
 :: terminal 3: log the test helper in to the mock once (http://localhost:8099, server 127.0.0.1:9001,
 :: user demo, password "p@ss+1 23"), then
-cd development\tools
+cd tools
 set HOMETV_URL=http://localhost:8099
 node e2e_test.js
 ```
@@ -42,7 +42,7 @@ F-032 adds a `HOMETV_DATA_DIR` setting so a copy is no longer needed.
 `/test` in Claude Code does the same.
 
 The mock covers: 30 channels in 3 groups, guide data with gaps, catch-up channels, a channel that returns 403, HLS with redirect + relative segments + query tokens, MPEG-TS, movies with range requests, series with seasons, a password with `@`, `+` and a space, and a provider clock 1 h ahead of UTC.
-**Stalker mock (F-036, not built yet):** `development/tools/mock_stalker.py` on port 9002 (MAC `00:1A:79:12:34:56`; one MAC deliberately unregistered). It checks the MAC cookie and Bearer token, expires tokens to test renewal, paginates VOD 14 per page, marks archive programmes, and issues single-use `create_link` URLs. The full e2e suite runs against **both** mocks.
+**Stalker mock (F-036, not built yet):** `tools/mock_stalker.py` on port 9002 (MAC `00:1A:79:12:34:56`; one MAC deliberately unregistered). It checks the MAC cookie and Bearer token, expires tokens to test renewal, paginates VOD 14 per page, marks archive programmes, and issues single-use `create_link` URLs. The full e2e suite runs against **both** mocks.
 
 **Rule:** every bug found on the real provider gets reproduced in the mock before it's fixed.
 

@@ -2,7 +2,7 @@
 data/
 **/helper/data/
 # Test media and caches
-development/tools/media/
+tools/media/
 node_modules/
 __pycache__/
 *.pyc

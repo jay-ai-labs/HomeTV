@@ -13,12 +13,11 @@ It works with Xtream Codes logins (server address, username, password) and suppl
 
 | Path | What it is |
 | --- | --- |
-| `development\` | **All source code**: `helper\` (home helper + web client), `prototype\`, `tools\` (mock provider, e2e tests), `apple\`, `android\` |
+| `helper\` | Current home helper and web client. `apps\` replaces it at the end of M4 |
+| `tools\` | Mock provider, e2e tests, artwork generator |
 | `docs\` | Technical plan, agent harness, features, API, data model, decisions, devlog, test plan, runbook, design |
 | `CLAUDE.md` | Rules for Claude Code |
 | `.claude\` | Claude Code agents (orchestrator, architect, backend, frontend, qa, docs-keeper), slash commands and permissions |
-
-Until the one-time move runs (`development\move-into-development.bat`), the code still sits at the root in `helper\`, `prototype\`, `tools\`, `apple\`, `android\` and `design\`.
 
 ## Developing with Claude Code
 
@@ -32,8 +31,8 @@ Then, for example: `/status`, `/feature-build F-019`, `/feature-new Sleep timer`
 ## Running HomeTV at home
 
 1. Install Python 3 from https://www.python.org/downloads/ and tick **Add python.exe to PATH**.
-2. Double-click `development\helper\start-hometv.bat`. When Windows Firewall asks, allow **Private networks**.
-3. Open http://localhost:8080 and enter your provider's login. It's saved only in `development\helper\data\config.json`.
+2. Double-click `helper\start-hometv.bat`. When Windows Firewall asks, allow **Private networks**.
+3. Open http://localhost:8080 and enter your provider's login. It's saved only in `helper\data\config.json`.
 4. On phones, tablets and the Fire Stick (Silk), open the address shown in the window, then Add to Home Screen.
 
 More: `docs\operations\RUNBOOK.md`. Never commit `data\`: it holds the provider login.

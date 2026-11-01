@@ -12,10 +12,10 @@ Models: orchestrator Opus 5.5; architect, backend, frontend and qa Sonnet; docs-
 | Agent | Owns (may edit) | Never edits | Typical output |
 | --- | --- | --- | --- |
 | **orchestrator** (the main session) | Task breakdown, hand-offs, merges, commits | Code directly when an owning agent exists | A plan per feature; agents run in order or in parallel; a commit |
-| **architect** | `docs/01-technical-plan.md`, `docs/decisions/`, `docs/api/API.md` (contract), `docs/database/DATA-MODEL.md` (design) | `development/` code | Feature design notes in the spec, ADRs, API/data contract changes *before* code is written |
-| **backend** | `development/helper/**` except `web/`, `development/tools/mock_provider.py` | `development/helper/web/**` | Helper code, unit tests, mock-provider updates, API docs synced to the code |
-| **frontend** | `development/helper/web/**`, `development/prototype/**` | `server.py` and helper modules | UI, player and navigation code, matching the design spec and tokens |
-| **qa** | `development/tools/**` (tests), `docs/testing/` | Product code (reports bugs instead) | Test runs, new e2e cases, bug reports, a pass/fail verdict |
+| **architect** | `docs/01-technical-plan.md`, `docs/decisions/`, `docs/api/API.md` (contract), `docs/database/DATA-MODEL.md` (design) | Code in `helper/`, `tools/` or `apps/` | Feature design notes in the spec, ADRs, API/data contract changes *before* code is written |
+| **backend** | `helper/**` except `web/`, `tools/mock_provider.py` | `helper/web/**` | Helper code, unit tests, mock-provider updates, API docs synced to the code |
+| **frontend** | `helper/web/**`, `docs/design/prototype/**` | `server.py` and helper modules | UI, player and navigation code, matching the design spec and tokens |
+| **qa** | `tools/**` (tests), `docs/testing/` | Product code (reports bugs instead) | Test runs, new e2e cases, bug reports, a pass/fail verdict |
 | **docs-keeper** | `docs/features/`, `docs/devlog/`, `docs/CHANGELOG.md`, `docs/ROADMAP.md`, `README.md` | Code, ADR decisions (records only what the architect decided) | Updated status, devlog entry, changelog line |
 
 Ownership prevents two agents (or two Claude sessions) editing the same file at once. If a change crosses areas, the orchestrator runs the agents one after another, never in parallel on the same files.
@@ -62,7 +62,7 @@ Every agent ends its turn with a short block the next agent reads:
 HANDOFF
 Feature: F-021 Remember last channel
 Agent: backend
-Changed: development/helper/hometv/store.py, docs/api/API.md (POST /api/recent)
+Changed: helper/hometv/store.py, docs/api/API.md (POST /api/recent)
 Tests: py -m unittest tests.test_store  → 6 passed
 Open: frontend must call POST /api/recent on channel start; key name "last_live"
 Next: frontend
@@ -91,7 +91,7 @@ Next: frontend
 
 ## Guardrails
 
-- Real provider credentials are never typed into Claude. `development/helper/data/` is denied in `.claude/settings.json`.
+- Real provider credentials are never typed into Claude. `helper/data/` is denied in `.claude/settings.json`.
 - Tests use only the mock provider (`127.0.0.1:9001`, user `demo`). Real-provider checks are done by the owner and noted in DEVLOG.
 - No new runtime dependencies in the helper (stdlib only) or the client (no bundler) without an ADR.
 - The e2e suite must be green before and after any refactor.

@@ -8,7 +8,7 @@ Read before working: `docs/README.md` (how tracking works), `docs/01-technical-p
 
 ## Golden rules
 
-1. **Never touch real credentials.** Don't read, print or edit `development/helper/data/` (denied in settings). Never ask the owner to paste the provider login. Tests use only the mock provider.
+1. **Never touch real credentials.** Don't read, print or edit `helper/data/` (denied in settings). Never ask the owner to paste the provider login. Tests use only the mock provider.
 2. **Never run tests against the real helper** (port 8080). Use a throwaway copy on port 8099, as in `docs/testing/TEST-PLAN.md`.
 3. **Docs move with code.** API change → `docs/api/API.md`; stored-data change → `docs/database/DATA-MODEL.md` (+ `schema_version` and migration); a real choice → an ADR. Same commit.
 4. **No new runtime dependencies** in the helper (Python stdlib only) or the client (no bundler or framework) without an ADR.
@@ -21,31 +21,25 @@ Read before working: `docs/README.md` (how tracking works), `docs/01-technical-p
 ```
 CLAUDE.md                 this file
 .claude/                 the harness: agents (orchestrator + 5 roles), slash commands, settings. Only copy; edit here
-development/              ALL source code
-  helper/                 home helper: server.py (+ hometv/ package after F-032), web/ client, data/ (secret, ignored)
-  helper/web/             index.html, app.css, app.js, fonts/, lib/ (hls.js, mpegts.js)
-  prototype/              cloud prototype build (sample data, demo.js)
-  tools/                  mock_provider.py, e2e_test.js, gen-art.js, package.json
-  apple/  android/        later phases (empty)
-docs/                     plan, harness, features, api, database, decisions, devlog, testing, operations, design
+helper/                   current home helper: server.py, web/ client, data/ (secret, ignored). Removed when apps/ replaces it at the end of M4
+helper/web/               index.html, app.css, app.js, fonts/, lib/ (hls.js, mpegts.js)
+tools/                    mock_provider.py, e2e_test.js, gen-art.js, package.json
+apps/                     new code, not created yet: api/ (FastAPI, M3) and web/ (React, M4)
+docs/                     plan, harness, features, api, database, decisions, devlog, testing, operations, design (with prototype/)
 ```
 
-**First-time setup (M1):**
-1. Check with the owner that no other Claude session is editing the project.
-2. Stop the helper. Run `development\move-into-development.bat`, or `git mv` the same folders: helper, prototype, tools, apple and android go into `development\`; design goes into `docs\design\`.
-3. `git init`, then commit everything as the baseline: `M1: baseline`. `.claude/` is committed too.
-4. Remind the owner to re-run `development\helper\install-autostart.bat`, because the path changed.
+**Setup:** `.claude/` is the only harness copy and is committed. Don't move `helper/`: new code goes in `apps/` beside it ([ADR-0012](docs/decisions/0012-build-new-code-beside-the-helper.md)).
 
 ## Commands (Windows, from the repo root)
 
 | Task | Command |
 | --- | --- |
-| Run the helper (owner's real one) | `development\helper\start-hometv.bat` (port 8080). Don't use it for tests |
-| Mock provider | `py development\tools\mock_provider.py 9001` |
-| Test helper | copy `development\helper` to `%TEMP%\hometv-test` without `data`, then `set HOMETV_PORT=8099 && py server.py` there |
-| e2e tests | `cd development\tools && npm install && set HOMETV_URL=http://localhost:8099 && node e2e_test.js` |
-| Helper unit tests (after F-032) | `cd development\helper && py -m unittest discover -s tests` |
-| Prototype artwork | `cd development\tools && node gen-art.js` |
+| Run the helper (owner's real one) | `helper\start-hometv.bat` (port 8080). Don't use it for tests |
+| Mock provider | `py tools\mock_provider.py 9001` |
+| Test helper | copy `helper` to `%TEMP%\hometv-test` without `data`, then `set HOMETV_PORT=8099 && py server.py` there |
+| e2e tests | `cd tools && npm install && set HOMETV_URL=http://localhost:8099 && node e2e_test.js` |
+| Helper unit tests (after F-032) | `cd helper && py -m unittest discover -s tests` |
+| Prototype artwork | `cd tools && node gen-art.js` |
 
 Mock login: server `127.0.0.1:9001`, user `demo`, password `p@ss+1 23`. Stalker mock (after F-036): portal `http://127.0.0.1:9002/c/`, MAC `00:1A:79:12:34:56`.
 

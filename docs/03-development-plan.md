@@ -1,8 +1,8 @@
 # HomeTV development plan: enterprise structure and stack
 
-Status: Approved by the owner, not started · Last updated: 2026-11-01
+Status: Approved by the owner, M1 in progress · Last updated: 2026-11-01
 
-This is a planning document. Nothing here has been executed. Where it differs from `CLAUDE.md`, `ROADMAP.md`, the technical plan or the ADRs, those stay in force until M1 updates them.
+Where this plan differs from `CLAUDE.md`, `ROADMAP.md`, the technical plan or the ADRs, those stay in force until M1 updates them.
 
 ## Context
 
@@ -38,7 +38,7 @@ The owner wants a cleaner, enterprise-level project with a modern stack (FastAPI
 
 ## Target project structure
 
-Replaces the planned `development/` folder, which is a non-standard extra level. Do this during M1, since the code move and `git init` haven't happened yet, so it avoids moving everything twice.
+There is no `development/` folder. `helper/` and `tools/` stay where they are, and new code is built in `apps/` beside them (ADR-0012). `helper/` is deleted when `apps/` takes over at the end of M4, and `tools/` moves into `tests/` then. The tree below is the end state.
 
 ```
 hometv/
@@ -88,7 +88,7 @@ hometv/
 - Keep the harness only in `.claude/` (ADR-0011).
 - Move runtime data out of the code tree with `HOMETV_DATA_DIR`, so an update can't touch the login.
 - Replace `.gitignore` paths for the new layout; add `.env`.
-- Fix stale paths: `helper/README.md`, `move-into-development.bat` (remove it), `.claude/agents/frontend.md`.
+- Fix stale paths: `helper/README.md`, `.claude/agents/frontend.md`.
 - Rebuild `design/prototype` as a Vite demo mode, removing `window.DEMO` from player code.
 
 ## Engineering improvements
@@ -137,10 +137,10 @@ Root `CLAUDE.md` and `README.md` get the new layout, commands and rules at M1.
 | # | Milestone | Scope | Exit criteria | Size |
 | --- | --- | --- | --- | --- |
 | Pre | Prerequisites | Confirm no other session is editing; install Git, Node, ffmpeg, real Python | Tools work | S |
-| M1 | Foundation | New structure (keeping `.claude/` and `docs/`), harness path updates, `git init`, clean-up list, CI skeleton, e2e assertions and baseline | CI green; e2e passes on old stack | M |
+| M1 | Foundation | Remove `development/`, harness path updates, `git init`, clean-up list, CI skeleton, e2e assertions and baseline | CI green; e2e passes on old stack | M |
 | M2 | Real-provider support and hardening | F-036 (Stalker/MAC portal, built on the current helper as framework-free adapters), F-019, F-020 | Works on 6 devices with the household's MAC portal | M |
 | M3 | FastAPI backend | Modules, Pydantic models, httpx relay, pytest, new packaging | Old client passes e2e unchanged | L |
-| M4 | React client | Typed client, screen-by-screen port, cutover, then F-021, F-022 | e2e and device checks pass; `app.js` deleted | L |
+| M4 | React client | Typed client, screen-by-screen port, cutover, then F-021, F-022 | e2e and device checks pass; `helper/` deleted | L |
 | M5 | Design system | F-031 | Done (ADR-0008) | Done |
 | M6 | Household features | SQLite migration, profiles, PINs, multiview | Migration tested with backup/restore | L |
 | M7 | Release and operations | Release pipeline, images, logs, backups, runbooks | Clean install from a release | M |

@@ -26,7 +26,7 @@ What they can do when this is done. Written from the user's side.
 - Decisions: ADR link, if any
 
 ## Test plan (qa)
-- e2e cases to add in development/tools/e2e_test.js
+- e2e cases to add in tools/e2e_test.js
 - Unit tests (helper)
 - Device checklist items
 

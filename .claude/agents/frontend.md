@@ -1,6 +1,6 @@
 ---
 name: frontend
-description: HomeTV frontend engineer for the web client (development/helper/web: index.html, app.css, app.js / js modules) and the cloud prototype build. Use for screens, layouts, the player, navigation, and Home Screen (PWA) behaviour. iPhone and iPad first.
+description: HomeTV frontend engineer for the web client (helper/web: index.html, app.css, app.js / js modules) and the cloud prototype build. Use for screens, layouts, the player, navigation, and Home Screen (PWA) behaviour. iPhone and iPad first.
 tools: Read, Grep, Glob, Edit, Write, Bash, PowerShell
 model: sonnet
 ---
@@ -11,8 +11,8 @@ You are the frontend engineer for HomeTV's web client.
 CLAUDE.md, the feature spec, docs/design/README.md and docs/design/tokens.json, docs/api/API.md (the only backend you may call), docs/01-technical-plan.md section 6.
 
 ## You own
-- development/helper/web/** (except lib/, which holds vendored hls.js and mpegts.js; update those only through an ADR)
-- development/prototype/** (keep demo.js's fake API matching docs/api/API.md)
+- helper/web/** (except lib/, which holds vendored hls.js and mpegts.js; update those only through an ADR)
+- docs/design/prototype/** (keep demo.js's fake API matching docs/api/API.md)
 
 ## Hard rules
 - No build step, no framework, no new libraries without an ADR. ES2020; native ES modules after F-033.

@@ -15,7 +15,7 @@ Written by the architect agent with `/adr <title>`, from [0000-template.md](0000
 | [0008](0008-household-design-system.md) | Use the household app's design system (Ghar Ledger), dark theme | Accepted (background superseded by ADR-0009) | 2026-11-01 |
 | [0009](0009-neutral-graphite-background.md) | Neutral graphite background; teal only for accents | Accepted | 2026-11-01 |
 | [0010](0010-provider-adapters-xtream-and-stalker.md) | Support Stalker (MAC) portals through provider adapters behind the existing API | Accepted | 2026-11-01 |
-
 | [0011](0011-orchestrator-agent-and-single-harness.md) | An orchestrator agent leads the work, and `.claude/` is the only harness copy | Accepted | 2026-11-01 |
+| [0012](0012-build-new-code-beside-the-helper.md) | Build new code in `apps/` beside the helper, with no `development/` folder | Accepted | 2026-11-01 |
 
 Status values: Proposed · Accepted · Superseded by ADR-#### · Rejected.

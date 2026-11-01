@@ -2,7 +2,7 @@
 // Text is converted to vector paths so the art looks the same on every device.
 'use strict';
 const fs = require('fs'), path = require('path'), ot = require('opentype.js');
-// The prototype lives in docs/design/prototype (repo root tools/ now, development/tools/ after the code move).
+// The prototype lives in docs/design/prototype.
 const OUT = process.argv[2] || [path.join(__dirname, '..', 'docs', 'design', 'prototype', 'art'), path.join(__dirname, '..', '..', 'docs', 'design', 'prototype', 'art'), path.join(__dirname, '..', 'prototype', 'art')]
   .find(p => fs.existsSync(path.dirname(p))) || path.join(__dirname, 'art');
 fs.mkdirSync(OUT, { recursive: true });

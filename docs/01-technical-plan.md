@@ -116,7 +116,7 @@ If HLS isn't allowed or fails, the client retries the same channel as `/play/liv
 
 ## 5. Backend (home helper) design
 
-Today the helper is one file (`development/helper/server.py`, about 680 lines). Milestone M3 splits it into a stdlib-only package without changing behaviour or the API:
+Today the helper is one file (`helper/server.py`, about 680 lines). Milestone M3 splits it into a stdlib-only package without changing behaviour or the API:
 
 | Module (planned) | Responsibility | Today in `server.py` |
 | --- | --- | --- |
@@ -188,7 +188,7 @@ Three layers, detailed in the [test plan](testing/TEST-PLAN.md):
 
 | # | Milestone | Main features | Exit criteria |
 | --- | --- | --- | --- |
-| M1 | Repo and agent harness | Git init, `development/` layout, docs, agents | `git log` has the baseline commit; `/test` passes |
+| M1 | Repo and agent harness | Git init, docs, agents | `git log` has the baseline commit; `/test` passes |
 | M2 | Real-provider support and hardening | F-036, F-019, F-020 | Logs in to the household's MAC portal; works on 6 devices; issues logged and fixed |
 | M3 | Helper modularisation + unit tests | F-032 | Same e2e results; `py -m unittest` covers provider, relay, store, epg |
 | M4 | Client modularisation + Home Screen polish | F-021, F-022, F-033 | ES modules, no regressions, iPhone/iPad checklist passes |
