@@ -3,7 +3,8 @@
   "private": true,
   "description": "Developer tools for HomeTV: browser tests and prototype artwork",
   "scripts": {
-    "test": "node e2e_test.js",
+    "test": "node run_e2e.js",
+    "e2e": "node run_e2e.js",
     "art": "node gen-art.js"
   },
   "devDependencies": {
@@ -17,3 +18,4 @@
     "@fontsource/playfair-display": "^5.0.0"
   }
 }
+
